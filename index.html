@@ -415,7 +415,7 @@ try{
 ipData=await fetch("https://ipapi.co/json/").then(r=>r.json())
 }catch{}
 
-emailjs.send("mahandate","temlate_ulh8n7m",{
+emailjs.send("mahandate","temlate_ulh8n7m", templateParams)
 
 date:date,
 time:selectedTime,
