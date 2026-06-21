@@ -412,22 +412,29 @@ async function sendEmail(date){
 let ipData={}
 
 try{
-ipData=await fetch("https://ipapi.co/json/").then(r=>r.json())
+ipData = await fetch("https://ipapi.co/json/").then(r=>r.json())
 }catch{}
 
+const templateParams = {
+date: date,
+time: selectedTime,
+food: selectedFood,
+ip: ipData.ip || "unknown",
+city: ipData.city || "unknown",
+country: ipData.country_name || "unknown",
+timestamp: new Date().toString()
+}
+
 emailjs.send("mahandate","template_ulh8n7m", templateParams)
-
-date:date,
-time:selectedTime,
-food:selectedFood,
-ip:ipData.ip,
-city:ipData.city,
-country:ipData.country_name,
-timestamp:new Date().toString()
-
+.then(()=>{
+console.log("Email sent")
+})
+.catch((err)=>{
+console.log("Email error",err)
 })
 
 }
+
 
 /* confetti */
 
@@ -524,11 +531,11 @@ a.click()
 
 }
 
-  <!-- EmailJS -->
+  /* EmailJS init */
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
-<script>
-emailjs.init("j52I4hqsYqbZLH6KK");
+emailjs.init("j52I4hqsYqbZLH6KK")
+
 </script>
 
 </body>
