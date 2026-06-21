@@ -9,7 +9,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-
 *{
 margin:0;
 padding:0;
@@ -23,11 +22,8 @@ overflow:hidden;
 display:flex;
 align-items:center;
 justify-content:center;
-background:
-radial-gradient(circle at 20% 20%,#ffd6e7,#ffc4da 40%,#ffb3d0);
+background:radial-gradient(circle at 20% 20%,#ffd6e7,#ffc4da 40%,#ffb3d0);
 }
-
-/* floating hearts */
 
 .heart{
 position:absolute;
@@ -41,37 +37,21 @@ animation:float linear infinite;
 100%{transform:translateY(-10vh) scale(1.2)}
 }
 
-/* glass card */
-
 .card{
 position:relative;
 width:92%;
 max-width:430px;
 padding:35px;
 border-radius:26px;
-
 background:rgba(255,255,255,.35);
 backdrop-filter:blur(22px);
-box-shadow:
-0 20px 60px rgba(0,0,0,.18),
-inset 0 1px rgba(255,255,255,.6);
-
+box-shadow:0 20px 60px rgba(0,0,0,.18), inset 0 1px rgba(255,255,255,.6);
 text-align:center;
-
-animation:fade .6s cubic-bezier(.2,.8,.2,1);
 }
 
-@keyframes fade{
-from{opacity:0;transform:translateY(20px) scale(.96)}
-to{opacity:1;transform:translateY(0) scale(1)}
-}
+.hidden{display:none}
 
-h1{
-font-size:27px;
-margin-bottom:28px;
-color:#2d2d2d;
-font-weight:600;
-}
+h1{font-size:27px;margin-bottom:28px}
 
 button{
 border:none;
@@ -79,27 +59,20 @@ border-radius:14px;
 padding:14px 24px;
 font-size:16px;
 cursor:pointer;
-transition:.25s;
 }
 
 .yes{
 background:linear-gradient(135deg,#ff5c8a,#ff2d6f);
 color:white;
-box-shadow:0 8px 20px rgba(255,45,111,.4);
-}
-
-.yes:hover{
-transform:translateY(-2px) scale(1.05);
 }
 
 .no{
 background:white;
 position:absolute;
+top:80px;
+left:50%;
+transform:translateX(-50%);
 }
-
-.hidden{display:none}
-
-/* food cards */
 
 .food-grid{
 display:grid;
@@ -113,20 +86,12 @@ padding:18px;
 border-radius:16px;
 background:white;
 cursor:pointer;
-transition:.25s;
-font-size:17px;
-}
-
-.food:hover{
-transform:translateY(-6px) scale(1.05);
 }
 
 .food.selected{
 background:#ff4f82;
 color:white;
 }
-
-/* time chips */
 
 .times{
 display:flex;
@@ -141,21 +106,11 @@ padding:10px 18px;
 border-radius:20px;
 background:white;
 cursor:pointer;
-transition:.2s;
-}
-
-.time:hover{
-transform:scale(1.08);
 }
 
 .time.selected{
 background:#ff4f82;
 color:white;
-}
-
-.final{
-font-size:18px;
-line-height:1.7;
 }
 
 canvas{
@@ -164,14 +119,6 @@ top:0;
 left:0;
 pointer-events:none;
 }
-
-input[type="date"]{
-padding:12px;
-border-radius:10px;
-border:none;
-font-size:16px;
-}
-
 </style>
 </head>
 
@@ -180,363 +127,259 @@ font-size:16px;
 <canvas id="confetti"></canvas>
 <div id="hearts"></div>
 
-<!-- screen 1 -->
-
+<!-- SCREEN 1 -->
 <div class="card" id="screen1">
-
 <h1>Hasti, will you go on a date with me? ❤️</h1>
-
 <button class="yes" onclick="accept()">Yes 💖</button>
 <button class="no" id="noBtn">No 😢</button>
-
 </div>
 
-<!-- screen 2 -->
-
+<!-- SCREEN 2 -->
 <div class="card hidden" id="screen2">
-
 <h1>When are you free?</h1>
-
 <input type="date" id="datePicker">
-
 <br><br>
-
 <button class="yes" onclick="nextFood()">Next</button>
-
 </div>
 
-<!-- screen 3 -->
-
+<!-- SCREEN 3 -->
 <div class="card hidden" id="screen3">
-
 <h1>What would you like to eat?</h1>
 
 <div class="food-grid">
-
 <div class="food">🍕 Pizza</div>
 <div class="food">🍣 Sushi</div>
 <div class="food">🍔 Burgers😔</div>
 <div class="food">🍝 Pasta</div>
 <div class="food">☕ Coffee</div>
-<div class="food">🥩 Steak/kebab</div>
+<div class="food">🥩 Steak/Kebab</div>
 <div class="food">🎁 Surprise Me</div>
-
 </div>
 
 <br>
-
 <button class="yes" onclick="nextTime()">Next</button>
-
 </div>
 
-<!-- screen 4 -->
-
+<!-- SCREEN 4 -->
 <div class="card hidden" id="screen4">
-
 <h1>What time should we meet?</h1>
 
 <div class="times">
-
-<div class="time">9:00</div>
+<div class="time">09:00</div>
 <div class="time">10:00</div>
 <div class="time">17:00</div>
 <div class="time">18:00</div>
 <div class="time">19:00</div>
 <div class="time">20:00</div>
-
 </div>
 
 <br>
-
 <button class="yes" onclick="finish()">Confirm</button>
-
 </div>
 
-<!-- final -->
-
+<!-- FINAL -->
 <div class="card hidden" id="screen5">
-
 <h1>❤️ It's a date!</h1>
-
-<div class="final" id="summary"></div>
-
+<div id="summary"></div>
 <br>
-
 <button class="yes" onclick="addCalendar()">Add to Calendar</button>
 <button onclick="share()">Share</button>
-
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 
 <script>
 
-/* floating hearts */
+const screen1=document.getElementById("screen1");
+const screen2=document.getElementById("screen2");
+const screen3=document.getElementById("screen3");
+const screen4=document.getElementById("screen4");
+const screen5=document.getElementById("screen5");
 
+const datePicker=document.getElementById("datePicker");
+const summary=document.getElementById("summary");
+const noBtn=document.getElementById("noBtn");
+
+let selectedFood="";
+let selectedTime="";
+
+/* hearts */
 for(let i=0;i<25;i++){
-
-let h=document.createElement("div")
-h.className="heart"
-h.innerHTML="❤️"
-
-h.style.left=Math.random()*100+"vw"
-h.style.fontSize=(14+Math.random()*20)+"px"
-h.style.animationDuration=(6+Math.random()*6)+"s"
-
-document.body.appendChild(h)
-
+let h=document.createElement("div");
+h.className="heart";
+h.innerHTML="❤️";
+h.style.left=Math.random()*100+"vw";
+h.style.fontSize=(14+Math.random()*20)+"px";
+h.style.animationDuration=(6+Math.random()*6)+"s";
+document.body.appendChild(h);
 }
 
-/* escaping button physics */
-
-const no=document.getElementById("noBtn")
-
-document.addEventListener("mousemove",e=>{
-
-const r=no.getBoundingClientRect()
-
+/* NO button escape */
+document.addEventListener("mousemove",(e)=>{
+const r=noBtn.getBoundingClientRect();
 const dist=Math.hypot(
 e.clientX-(r.x+r.width/2),
 e.clientY-(r.y+r.height/2)
-)
+);
 
 if(dist<140){
-
-const x=Math.random()*(window.innerWidth-120)
-const y=Math.random()*(window.innerHeight-60)
-
-no.style.left=x+"px"
-no.style.top=y+"px"
-
+noBtn.style.left=Math.random()*80+"vw";
+noBtn.style.top=Math.random()*80+"vh";
 }
+});
 
-})
-
-let selectedFood=""
-let selectedTime=""
-
-/* screens */
-
+/* FLOW */
 function accept(){
-
-confetti()
-
-screen1.classList.add("hidden")
-screen2.classList.remove("hidden")
-
+confetti();
+screen1.classList.add("hidden");
+screen2.classList.remove("hidden");
 }
 
 function nextFood(){
-
-if(!datePicker.value){
-alert("Pick a date first")
-return
+if(!datePicker.value) return alert("Pick a date first");
+screen2.classList.add("hidden");
+screen3.classList.remove("hidden");
 }
 
-screen2.classList.add("hidden")
-screen3.classList.remove("hidden")
-
-}
-
-/* food select */
-
+/* FOOD */
 document.querySelectorAll(".food").forEach(f=>{
-
 f.onclick=()=>{
-
-document.querySelectorAll(".food").forEach(a=>a.classList.remove("selected"))
-
-f.classList.add("selected")
-
-selectedFood=f.innerText
-
+document.querySelectorAll(".food").forEach(a=>a.classList.remove("selected"));
+f.classList.add("selected");
+selectedFood=f.innerText;
 }
+});
 
-})
+/* TIME */
+document.querySelectorAll(".time").forEach(t=>{
+t.onclick=()=>{
+document.querySelectorAll(".time").forEach(a=>a.classList.remove("selected"));
+t.classList.add("selected");
+selectedTime=t.innerText;
+}
+});
 
 function nextTime(){
-
-if(!selectedFood){
-alert("Choose food")
-return
+if(!selectedFood) return alert("Choose food");
+screen3.classList.add("hidden");
+screen4.classList.remove("hidden");
 }
 
-screen3.classList.add("hidden")
-screen4.classList.remove("hidden")
+function finish(){
+if(!selectedTime) return alert("Choose time");
 
-}
-
-/* time */
-
-document.querySelectorAll(".time").forEach(t=>{
-
-t.onclick=()=>{
-
-document.querySelectorAll(".time").forEach(a=>a.classList.remove("selected"))
-
-t.classList.add("selected")
-
-selectedTime=t.innerText
-
-}
-
-})
-
-async function finish(){
-
-if(!selectedTime){
-alert("Choose time")
-return
-}
-
-screen4.classList.add("hidden")
-screen5.classList.remove("hidden")
-
-const date=datePicker.value
+const date=datePicker.value;
 
 summary.innerHTML=
-
 `Date: ${date}<br>
 Time: ${selectedTime}<br>
 Food: ${selectedFood}<br><br>
-I can't wait to see you my sun ❤️`
+I can't wait to see you ❤️`;
 
-sendEmail(date)
+screen4.classList.add("hidden");
+screen5.classList.remove("hidden");
 
+sendEmail(date).catch(()=>{});
 }
 
-/* email */
-
+/* EMAIL */
 async function sendEmail(date){
-
-let ipData={}
+try{
+let ipData={};
 
 try{
-ipData = await fetch("https://ipapi.co/json/").then(r=>r.json())
+ipData=await fetch("https://ipapi.co/json/").then(r=>r.json());
 }catch{}
 
-const templateParams = {
-date: date,
-time: selectedTime,
-food: selectedFood,
-ip: ipData.ip || "unknown",
-city: ipData.city || "unknown",
-country: ipData.country_name || "unknown",
-timestamp: new Date().toString()
+await emailjs.send("mahandate","template_ulh8n7m",{
+date,
+time:selectedTime,
+food:selectedFood,
+ip:ipData.ip||"unknown",
+city:ipData.city||"unknown",
+country:ipData.country_name||"unknown",
+timestamp:new Date().toString()
+});
+
+}catch(err){
+console.log("email failed",err);
+}
 }
 
-emailjs.send("mahandate","template_ulh8n7m", templateParams)
-.then(()=>{
-console.log("Email sent")
-})
-.catch((err)=>{
-console.log("Email error",err)
-})
-
-}
-
-
-/* confetti */
+/* CONFETTI */
+let confettiInterval;
 
 function confetti(){
+const canvas=document.getElementById("confetti");
+const ctx=canvas.getContext("2d");
 
-const canvas=document.getElementById("confetti")
-const ctx=canvas.getContext("2d")
+canvas.width=innerWidth;
+canvas.height=innerHeight;
 
-canvas.width=innerWidth
-canvas.height=innerHeight
-
-let pieces=[]
+let pieces=[];
 
 for(let i=0;i<150;i++){
-
 pieces.push({
-
 x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
 r:Math.random()*6+4
-
-})
-
+});
 }
 
-setInterval(()=>{
+if(confettiInterval) clearInterval(confettiInterval);
 
-ctx.clearRect(0,0,canvas.width,canvas.height)
+confettiInterval=setInterval(()=>{
+ctx.clearRect(0,0,canvas.width,canvas.height);
 
 pieces.forEach(p=>{
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+ctx.fillStyle="hsl("+Math.random()*360+",80%,60%)";
+ctx.fill();
+p.y+=2;
+if(p.y>canvas.height)p.y=0;
+});
 
-ctx.beginPath()
-ctx.arc(p.x,p.y,p.r,0,Math.PI*2)
-ctx.fillStyle="hsl("+Math.random()*360+",80%,60%)"
-ctx.fill()
-
-p.y+=2
-
-if(p.y>canvas.height)p.y=0
-
-})
-
-},20)
-
+},20);
 }
 
-/* share */
-
+/* SHARE */
 function share(){
-
 if(navigator.share){
-
 navigator.share({
-
-title:"Date Invitation ❤️",
-text:"I said yes to a date!",
+title:"Date ❤️",
+text:"I said yes!",
 url:location.href
-
-})
-
+});
 }else{
-
-alert("Copy this link: "+location.href)
-
+alert(location.href);
+}
 }
 
-}
-
-/* calendar */
-
+/* CALENDAR */
 function addCalendar(){
+const date=datePicker.value;
+const start=date.replace(/-/g,"")+"T"+selectedTime.replace(":","")+"00";
 
-const date=datePicker.value
-const time=selectedTime
-
-const start=date+"T"+time+":00"
-
-const ics=
-
-`BEGIN:VCALENDAR
+const ics=`BEGIN:VCALENDAR
+VERSION:2.0
 BEGIN:VEVENT
-DTSTART:${start.replace(/[-:]/g,"")}
-SUMMARY:Date with Hasti ❤️
+DTSTART:${start}
+SUMMARY:Date ❤️
 END:VEVENT
-END:VCALENDAR`
+END:VCALENDAR`;
 
-const blob=new Blob([ics],{type:'text/calendar'})
-
-const a=document.createElement("a")
-
-a.href=URL.createObjectURL(blob)
-a.download="date.ics"
-a.click()
-
+const blob=new Blob([ics],{type:"text/calendar"});
+const a=document.createElement("a");
+a.href=URL.createObjectURL(blob);
+a.download="date.ics";
+a.click();
 }
 
-/* EmailJS init */
-
+/* INIT EMAILJS */
 emailjs.init("j52I4hqsYqbZLH6KK");
 
 </script>
 
 </body>
 </html>
-
